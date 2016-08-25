@@ -1,0 +1,83 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.1.0'
+        classpath 'com.github.xfumihiro.view-inspector:view-inspector-plugin:0.2.0'
+    }
+}
+
+plugins {
+    id "me.tatarka.retrolambda" version "3.2.5"
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'android-apt'
+/*apply plugin: 'view-inspector'*/
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
+    defaultConfig {
+        applicationId "org.alex_z.app.a4pdareader"
+        minSdkVersion 14
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dataBinding.enabled = true
+}
+
+greendao {
+    schemaVersion 1
+    generateTests false
+}
+
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    testCompile 'junit:junit:4.12'
+    compile 'com.jakewharton:butterknife:8.3.0'
+    apt 'com.jakewharton:butterknife-compiler:8.3.0'
+    compile 'com.google.dagger:dagger:2.6'
+    apt "com.google.dagger:dagger-compiler:2.6"
+    compile 'io.reactivex:rxjava:1.1.9'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava-async-util:0.21.0'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    compile 'com.trello:rxlifecycle:0.6.1'
+    compile 'com.trello:rxlifecycle-components:0.6.1'
+    compile 'com.dzaitsev.rxviper:rxviper:0.10.0'
+    compile 'com.einmalfel:earl:1.1.0'
+    compile 'com.google.guava:guava:18.0'
+    compile 'org.greenrobot:greendao:3.1.1'
+    compile 'net.zetetic:android-database-sqlcipher:3.4.0'
+    compile 'com.android.support:design:24.2.0'
+    compile 'com.android.support:recyclerview-v7:24.2.0'
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:design:24.2.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
+    compile 'com.android.support:support-annotations:24.2.0'
+}

@@ -1,0 +1,38 @@
+package org.alex_z.app.a4pdareader.data.news;
+
+import android.support.annotation.NonNull;
+import android.support.annotation.Size;
+
+import org.alex_z.app.a4pdareader.data.entity.NewsDataEntity;
+
+import java.net.URL;
+import java.util.List;
+
+import rx.Observable;
+
+public class DiskNewsProvider implements INewsProvider {
+
+    @NonNull
+    @Override
+    public Observable<List<NewsDataEntity>> getNews(URL linkFeed, @Size(min = 0) int size) {
+        return null;
+    }
+
+    @NonNull
+    @Override
+    public Observable<List<NewsDataEntity>> getNews(URL linkFeed) {
+        return getNews(linkFeed, Integer.MAX_VALUE);
+    }
+
+    @NonNull
+    @Override
+    public Observable<NewsDataEntity> getStreamNews(URL linkFeed, @Size(min = 0) int size) {
+        return null;
+    }
+
+    @NonNull
+    @Override
+    public Observable<NewsDataEntity> getStreamNews(URL linkFeed) {
+        return getStreamNews(linkFeed, Integer.MAX_VALUE);
+    }
+}

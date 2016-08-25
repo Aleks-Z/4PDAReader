@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="earl-1.1.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.einmalfel/earl/1.1.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.einmalfel/earl/1.1.0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.einmalfel/earl/1.1.0/18e3467373687e1c54f06ed3a05323ae66d7d22d/earl-1.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

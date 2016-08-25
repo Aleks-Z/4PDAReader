@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">4PDA Reader</string>
+    <string name="link_source">http://4pda.ru/feed</string>
+</resources>
