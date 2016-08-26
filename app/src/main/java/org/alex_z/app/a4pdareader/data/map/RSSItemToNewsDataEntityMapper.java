@@ -9,8 +9,6 @@ import viper.Mapper;
 public class RSSItemToNewsDataEntityMapper extends Mapper<RSSItem, NewsDataEntity> {
     @Override
     public NewsDataEntity map(RSSItem entity) {
-        //TODO
-        System.out.println(entity.toString());
-        return new NewsDataEntity(entity.getTitle(), entity.getDescription());
+        return new NewsDataEntity(entity.getTitle(), entity.getDescription(), entity.getLink());
     }
 }

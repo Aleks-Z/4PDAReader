@@ -4,15 +4,20 @@ import android.support.annotation.NonNull;
 
 import org.greenrobot.greendao.annotation.NotNull;
 
+import java.net.URL;
+
 public class NewsDomainEntity {
     @NonNull
     private String title;
     @NonNull
     private String description;
 
-    public NewsDomainEntity(@NonNull String title, @NonNull String description) {
+    private URL urlNews;
+
+    public NewsDomainEntity(@NonNull String title, @NonNull String description, URL urlNews) {
         this.title = title;
         this.description = description;
+        this.urlNews = urlNews;
     }
 
     @NonNull
@@ -31,5 +36,13 @@ public class NewsDomainEntity {
 
     public void setDescription(@NonNull String description) {
         this.description = description;
+    }
+
+    public URL getUrlNews() {
+        return urlNews;
+    }
+
+    public void setUrlNews(URL urlNews) {
+        this.urlNews = urlNews;
     }
 }

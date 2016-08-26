@@ -4,6 +4,7 @@ import org.alex_z.app.a4pdareader.additional.StringProvider;
 import org.alex_z.app.a4pdareader.domain.entity.NewsDomainEntity;
 import org.alex_z.app.a4pdareader.domain.news.NewsInteractor;
 import org.alex_z.app.a4pdareader.presenter.app.main.base.BaseMainPresenter;
+import org.alex_z.app.a4pdareader.presenter.entity.NewsPresenterEntity;
 import org.alex_z.app.a4pdareader.presenter.map.NewsDomainEntityToNewsPresenterEntityMapper;
 
 import java.net.MalformedURLException;
@@ -45,7 +46,7 @@ public class NewsPresenter extends BaseMainPresenter<INewsView> {
 
             @Override
             public void onNext(List<NewsDomainEntity> newsDomainEntities) {
-                getView().setNews(
+                getView().setListNews(
                         new ArrayList<>(
                                 new NewsDomainEntityToNewsPresenterEntityMapper()
                                         .map(newsDomainEntities)
@@ -60,4 +61,33 @@ public class NewsPresenter extends BaseMainPresenter<INewsView> {
         newsInteractor.unsubscribe();
     }
 
+    public void newsSelected(NewsPresenterEntity entity) {
+        getRouter().showNews(entity);
+    }
+
+    public void updateNews() {
+        newsInteractor.execute(new Subscriber<List<NewsDomainEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                getView().showError(0);
+            }
+
+            @Override
+            public void onNext(List<NewsDomainEntity> newsDomainEntities) {
+                getView().setListNews(
+                        new ArrayList<>(
+                                new NewsDomainEntityToNewsPresenterEntityMapper()
+                                        .map(newsDomainEntities)
+                        )
+                );
+                getView().switchRefresh();
+            }
+        }, url);
+    }
 }

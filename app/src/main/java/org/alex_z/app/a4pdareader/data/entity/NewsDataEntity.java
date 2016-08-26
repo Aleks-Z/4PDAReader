@@ -6,6 +6,8 @@ import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
 
+import java.net.URL;
+
 @Entity(active = true)
 public class NewsDataEntity {
 
@@ -17,21 +19,22 @@ public class NewsDataEntity {
     @NotNull
     private String description;
 
+    private String urlNews;
+
     /**
      * Used for active entity operations.
      */
     @Generated(hash = 846585716)
     private transient NewsDataEntityDao myDao;
 
-    /**
-     * Used to resolve relations
-     */
+    /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    public NewsDataEntity(String title, String description) {
+    public NewsDataEntity(String title, String description, String urlNews) {
         this.title = title;
         this.description = description;
+        this.urlNews = urlNews;
     }
 
     /**
@@ -70,13 +73,19 @@ public class NewsDataEntity {
         myDao.delete(this);
     }
 
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
+    /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1793596188)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getNewsDataEntityDao() : null;
+    }
+
+    public String getUrlNews() {
+        return this.urlNews;
+    }
+
+    public void setUrlNews(String urlNews) {
+        this.urlNews = urlNews;
     }
 
     public String getDescription() {
@@ -103,15 +112,18 @@ public class NewsDataEntity {
         this.id = id;
     }
 
-    @Generated(hash = 1365893771)
+    @Generated(hash = 1421827660)
     public NewsDataEntity(Long id, @NotNull String title,
-                          @NotNull String description) {
+                          @NotNull String description, String urlNews) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.urlNews = urlNews;
     }
 
     @Generated(hash = 1681746503)
     public NewsDataEntity() {
     }
+
+
 }

@@ -6,5 +6,9 @@ import org.alex_z.app.a4pdareader.presenter.entity.NewsPresenterEntity;
 import java.util.List;
 
 interface INewsView extends IMainView {
-    void setNews(List<NewsPresenterEntity> list);
+    void setListNews(List<NewsPresenterEntity> list);
+
+    List<NewsPresenterEntity> getListNews();
+
+    void switchRefresh();
 }
