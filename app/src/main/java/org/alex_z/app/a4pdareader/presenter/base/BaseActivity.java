@@ -1,6 +1,7 @@
 package org.alex_z.app.a4pdareader.presenter.base;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -49,10 +50,10 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseRou
         unbinder.unbind();
     }
 
-    public void showFragment(BaseFragment fragment, boolean addBackStack) {
+    public void showFragment(@IdRes int replaceId, BaseFragment fragment, boolean addBackStack) {
         Preconditions.checkNotNull(fragment);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.replace(R.id.content, fragment);
+        tx.replace(replaceId, fragment);
         if (addBackStack) tx.addToBackStack(fragment.getFragmentName());
         tx.commit();
     }

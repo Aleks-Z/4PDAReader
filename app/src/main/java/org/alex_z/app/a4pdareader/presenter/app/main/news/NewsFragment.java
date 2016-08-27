@@ -3,6 +3,7 @@ package org.alex_z.app.a4pdareader.presenter.app.main.news;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -35,13 +36,17 @@ public class NewsFragment extends BaseMainFragment<NewsPresenter> implements INe
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        refreshLayout.setOnRefreshListener(() -> getPresenter().updateNews());
+
         news = new ArrayList<>();
         adapter = new NewsAdapter(this.news);
         adapter.setOnItemClickListener(
                 view -> newsPresenter.newsSelected((NewsPresenterEntity) view.getTag())
         );
+
+        refreshLayout.setOnRefreshListener(() -> getPresenter().updateNews());
+
         recyclerView.setAdapter(adapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     @NonNull

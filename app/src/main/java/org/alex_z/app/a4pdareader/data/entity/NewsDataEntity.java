@@ -27,7 +27,9 @@ public class NewsDataEntity {
     @Generated(hash = 846585716)
     private transient NewsDataEntityDao myDao;
 
-    /** Used to resolve relations */
+    /**
+     * Used to resolve relations
+     */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
@@ -73,7 +75,9 @@ public class NewsDataEntity {
         myDao.delete(this);
     }
 
-    /** called by internal mechanisms, do not call yourself. */
+    /**
+     * called by internal mechanisms, do not call yourself.
+     */
     @Generated(hash = 1793596188)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;

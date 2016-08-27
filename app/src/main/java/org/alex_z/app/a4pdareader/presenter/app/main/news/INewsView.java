@@ -7,8 +7,6 @@ import java.util.List;
 
 interface INewsView extends IMainView {
     void setListNews(List<NewsPresenterEntity> list);
-
     List<NewsPresenterEntity> getListNews();
-
     void switchRefresh();
 }
