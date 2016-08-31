@@ -2,12 +2,16 @@ package org.alex_z.app.a4pdareader.presenter.base;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
+import org.alex_z.app.a4pdareader.R;
 import org.alex_z.app.a4pdareader.presenter.app.AppComponent;
 import org.alex_z.app.a4pdareader.presenter.app.App;
 
@@ -29,6 +33,13 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        //setRetainInstance(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Class cls = getClass();
         if (!cls.isAnnotationPresent(Layout.class)) return null;
@@ -37,6 +48,17 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         View view = inflater.inflate(layout.id(), null);
         unbinder = ButterKnife.bind(this, view);
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        Class cls = getClass();
+        if (!cls.isAnnotationPresent(Layout.class)) return;
+        Annotation annotation = cls.getAnnotation(Layout.class);
+        Layout layout = (Layout) annotation;
+        if (layout.menuId() == 0) return;
+        inflater.inflate(layout.menuId(), menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

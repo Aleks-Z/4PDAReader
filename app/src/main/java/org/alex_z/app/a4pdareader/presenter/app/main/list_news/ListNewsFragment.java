@@ -1,4 +1,4 @@
-package org.alex_z.app.a4pdareader.presenter.app.main.news;
+package org.alex_z.app.a4pdareader.presenter.app.main.list_news;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,10 +19,12 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-@Layout(id = R.layout.fragment_news)
-public class NewsFragment extends BaseMainFragment<NewsPresenter> implements INewsView {
+@Layout(id = R.layout.fragment_news, menuId = R.menu.fragment_list_news)
+public class ListNewsFragment extends BaseMainFragment<ListNewsPresenter> implements IListNewsView {
+    private static ListNewsFragment instance;
+
     @Inject
-    NewsPresenter newsPresenter;
+    ListNewsPresenter listNewsPresenter;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -31,16 +33,22 @@ public class NewsFragment extends BaseMainFragment<NewsPresenter> implements INe
     SwipeRefreshLayout refreshLayout;
 
     List<NewsPresenterEntity> news;
-    NewsAdapter adapter;
+    ListNewsAdapter adapter;
+
+    public static ListNewsFragment getInstance() {
+        if (instance == null) instance = new ListNewsFragment();
+        return instance;
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         news = new ArrayList<>();
-        adapter = new NewsAdapter(this.news);
+        adapter = new ListNewsAdapter(this.news);
         adapter.setOnItemClickListener(
-                view -> newsPresenter.newsSelected((NewsPresenterEntity) view.getTag())
+                view -> listNewsPresenter.newsSelected((NewsPresenterEntity) view.getTag())
         );
 
         refreshLayout.setOnRefreshListener(() -> getPresenter().updateNews());
@@ -51,8 +59,8 @@ public class NewsFragment extends BaseMainFragment<NewsPresenter> implements INe
 
     @NonNull
     @Override
-    protected NewsPresenter getPresenter() {
-        return newsPresenter;
+    protected ListNewsPresenter getPresenter() {
+        return listNewsPresenter;
     }
 
     @Override

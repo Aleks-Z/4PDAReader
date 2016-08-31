@@ -1,25 +1,24 @@
 package org.alex_z.app.a4pdareader.data.entity;
 
+import android.webkit.URLUtil;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
 
-import java.net.URL;
-
 @Entity(active = true)
 public class NewsDataEntity {
-
     @Id
     private Long id;
 
     @NotNull
     private String title;
     @NotNull
-    private String description;
-
     private String urlNews;
+
+    private String sourceHTML;
 
     /**
      * Used for active entity operations.
@@ -33,10 +32,13 @@ public class NewsDataEntity {
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    public NewsDataEntity(String title, String description, String urlNews) {
+    public NewsDataEntity(String title, String urlNews, String sourceHTML) {
+        if (!URLUtil.isValidUrl(urlNews))
+            throw new IllegalArgumentException("urlNews isn't valid");
+
         this.title = title;
-        this.description = description;
         this.urlNews = urlNews;
+        this.sourceHTML = sourceHTML;
     }
 
     /**
@@ -84,20 +86,20 @@ public class NewsDataEntity {
         myDao = daoSession != null ? daoSession.getNewsDataEntityDao() : null;
     }
 
+    public String getSourceHTML() {
+        return this.sourceHTML;
+    }
+
+    public void setSourceHTML(String sourceHTML) {
+        this.sourceHTML = sourceHTML;
+    }
+
     public String getUrlNews() {
         return this.urlNews;
     }
 
     public void setUrlNews(String urlNews) {
         this.urlNews = urlNews;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getTitle() {
@@ -116,13 +118,13 @@ public class NewsDataEntity {
         this.id = id;
     }
 
-    @Generated(hash = 1421827660)
-    public NewsDataEntity(Long id, @NotNull String title,
-                          @NotNull String description, String urlNews) {
+    @Generated(hash = 1951640860)
+    public NewsDataEntity(Long id, @NotNull String title, @NotNull String urlNews,
+                          String sourceHTML) {
         this.id = id;
         this.title = title;
-        this.description = description;
         this.urlNews = urlNews;
+        this.sourceHTML = sourceHTML;
     }
 
     @Generated(hash = 1681746503)

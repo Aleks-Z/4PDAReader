@@ -1,11 +1,10 @@
-package org.alex_z.app.a4pdareader.presenter.app.main.news;
+package org.alex_z.app.a4pdareader.presenter.app.main.list_saved_news;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 
 import org.alex_z.app.a4pdareader.R;
 import org.alex_z.app.a4pdareader.presenter.entity.NewsPresenterEntity;
@@ -16,16 +15,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
+class ListSavedNewsAdapter extends RecyclerView.Adapter<ListSavedNewsAdapter.NewsViewHolder> {
     private List<NewsPresenterEntity> newsList;
     private View.OnClickListener onItemClickListener;
 
-    public NewsAdapter(List<NewsPresenterEntity> newsList, View.OnClickListener onItemClickListener) {
+    public ListSavedNewsAdapter(List<NewsPresenterEntity> newsList, View.OnClickListener onItemClickListener) {
         this.newsList = newsList;
         this.onItemClickListener = onItemClickListener;
     }
 
-    NewsAdapter(List<NewsPresenterEntity> newsList) {
+    ListSavedNewsAdapter(List<NewsPresenterEntity> newsList) {
         this.newsList = newsList;
     }
 
@@ -37,7 +36,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
     public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View convertView = LayoutInflater.from(parent.getContext())
                 .inflate(
-                        R.layout.item_news,
+                        R.layout.item_saved_news,
                         parent,
                         false
                 );

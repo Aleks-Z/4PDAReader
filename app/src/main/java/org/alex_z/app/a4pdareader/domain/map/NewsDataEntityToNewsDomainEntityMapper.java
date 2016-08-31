@@ -11,12 +11,12 @@ import viper.Mapper;
 public class NewsDataEntityToNewsDomainEntityMapper extends Mapper<NewsDataEntity, NewsDomainEntity> {
     @Override
     public NewsDomainEntity map(NewsDataEntity entity) {
-        URL url = null;
+        URL url;
         try {
             url = new URL(entity.getUrlNews());
+            return new NewsDomainEntity(entity.getTitle(), url, entity.getSourceHTML());
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("URL isn't valid");
         }
-        return new NewsDomainEntity(entity.getTitle(), entity.getDescription(), url);
     }
 }

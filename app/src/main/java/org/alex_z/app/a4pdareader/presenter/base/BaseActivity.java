@@ -1,7 +1,10 @@
 package org.alex_z.app.a4pdareader.presenter.base;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -36,10 +39,10 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseRou
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Class cls = getClass();
-        if (!cls.isAnnotationPresent(Layout.class)) return true;
+        if (!cls.isAnnotationPresent(Layout.class)) return false;
         Annotation annotation = cls.getAnnotation(Layout.class);
         Layout layout = (Layout) annotation;
-        if (layout.menuId() == 0) return true;
+        if (layout.menuId() == 0) return false;
         getMenuInflater().inflate(layout.menuId(), menu);
         return true;
     }
@@ -52,9 +55,16 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseRou
 
     public void showFragment(@IdRes int replaceId, BaseFragment fragment, boolean addBackStack) {
         Preconditions.checkNotNull(fragment);
+        FragmentManager.enableDebugLogging(true);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(replaceId, fragment);
         if (addBackStack) tx.addToBackStack(fragment.getFragmentName());
         tx.commit();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
     }
 }

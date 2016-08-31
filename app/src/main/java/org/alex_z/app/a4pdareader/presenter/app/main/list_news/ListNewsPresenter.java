@@ -1,11 +1,13 @@
-package org.alex_z.app.a4pdareader.presenter.app.main.news;
+package org.alex_z.app.a4pdareader.presenter.app.main.list_news;
 
 import org.alex_z.app.a4pdareader.additional.StringProvider;
 import org.alex_z.app.a4pdareader.domain.entity.NewsDomainEntity;
-import org.alex_z.app.a4pdareader.domain.news.NewsInteractor;
+import org.alex_z.app.a4pdareader.domain.news.GetNewsInteractor;
+import org.alex_z.app.a4pdareader.domain.news.SaveNewsInteractor;
 import org.alex_z.app.a4pdareader.presenter.app.main.base.BaseMainPresenter;
 import org.alex_z.app.a4pdareader.presenter.entity.NewsPresenterEntity;
 import org.alex_z.app.a4pdareader.presenter.map.NewsDomainEntityToNewsPresenterEntityMapper;
+import org.alex_z.app.a4pdareader.presenter.map.NewsPresenterEntityToNewsDomainEntityMapper;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,15 +18,17 @@ import javax.inject.Inject;
 
 import rx.Subscriber;
 
-public class NewsPresenter extends BaseMainPresenter<INewsView> {
-    private NewsInteractor newsInteractor;
-    private URL url;
+public class ListNewsPresenter extends BaseMainPresenter<IListNewsView> {
+    private GetNewsInteractor getNewsInteractor;
+    private SaveNewsInteractor saveNewsInteractor;
+    private URL sourceURL;
 
     @Inject
-    NewsPresenter(NewsInteractor newsInteractor) {
-        this.newsInteractor = newsInteractor;
+    ListNewsPresenter(GetNewsInteractor getNewsInteractor, SaveNewsInteractor saveNewsInteractor) {
+        this.getNewsInteractor = getNewsInteractor;
+        this.saveNewsInteractor = saveNewsInteractor;
         try {
-            url = new URL(StringProvider.getInstance().LINK_SOURCE);
+            sourceURL = new URL(StringProvider.getInstance().LINK_SOURCE);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -32,7 +36,7 @@ public class NewsPresenter extends BaseMainPresenter<INewsView> {
 
     @Override
     public void onStart() {
-        newsInteractor.execute(new Subscriber<List<NewsDomainEntity>>() {
+        getNewsInteractor.execute(new Subscriber<List<NewsDomainEntity>>() {
             @Override
             public void onCompleted() {
 
@@ -53,20 +57,21 @@ public class NewsPresenter extends BaseMainPresenter<INewsView> {
                         )
                 );
             }
-        }, url);
+        }, sourceURL);
     }
 
     @Override
     public void onStop() {
-        newsInteractor.unsubscribe();
+        getNewsInteractor.unsubscribe();
+        saveNewsInteractor.unsubscribe();
     }
 
     public void newsSelected(NewsPresenterEntity entity) {
-        getRouter().showNews(entity);
+        getRouter().showNews(entity, false);
     }
 
     public void updateNews() {
-        newsInteractor.execute(new Subscriber<List<NewsDomainEntity>>() {
+        getNewsInteractor.execute(new Subscriber<List<NewsDomainEntity>>() {
             @Override
             public void onCompleted() {
 
@@ -88,6 +93,27 @@ public class NewsPresenter extends BaseMainPresenter<INewsView> {
                 );
                 getView().switchRefresh();
             }
-        }, url);
+        }, sourceURL);
+    }
+
+    public void saveNews(NewsPresenterEntity entity) {
+        saveNewsInteractor.execute(
+                new Subscriber<Void>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(Void aVoid) {
+                        getView().showNewMessagesNotification();
+                    }
+                },
+                new NewsPresenterEntityToNewsDomainEntityMapper().map(entity));
     }
 }
