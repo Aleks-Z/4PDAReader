@@ -11,8 +11,8 @@ public class NewsDomainEntityToNewsPresenterEntityMapper
     public NewsPresenterEntity map(NewsDomainEntity entity) {
         return new NewsPresenterEntity(
                 entity.getTitle(),
-
                 entity.getUrlNews(),
+                entity.getCommentUrlNews(),
                 entity.getSourceHTML()
         );
     }

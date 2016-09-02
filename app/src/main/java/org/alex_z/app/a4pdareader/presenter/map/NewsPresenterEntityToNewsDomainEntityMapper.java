@@ -8,6 +8,11 @@ import viper.Mapper;
 public class NewsPresenterEntityToNewsDomainEntityMapper extends Mapper<NewsPresenterEntity, NewsDomainEntity> {
     @Override
     public NewsDomainEntity map(NewsPresenterEntity entity) {
-        return new NewsDomainEntity(entity.getTitle(), entity.getUrlNews(), entity.getSourceHTML());
+        return new NewsDomainEntity(
+                entity.getTitle(),
+                entity.getUrlNews(),
+                entity.getCommentUrlNews(),
+                entity.getSourceHTML()
+        );
     }
 }

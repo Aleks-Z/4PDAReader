@@ -11,6 +11,7 @@ public class NewsDomainEntityToNewsDataEntityMapper extends Mapper<NewsDomainEnt
         return new NewsDataEntity(
                 entity.getTitle(),
                 entity.getUrlNews().toString(),
+                entity.getCommentUrlNews().toString(),
                 entity.getSourceHTML()
         );
     }

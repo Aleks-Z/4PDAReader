@@ -1,4 +1,4 @@
-package org.alex_z.app.a4pdareader.presenter.app.main.list_saved_news;
+package org.alex_z.app.a4pdareader.presenter.app.main.list_save_news;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,10 +19,10 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-@Layout(id = R.layout.fragment_news, menuId = R.menu.fragment_list_news)
-public class ListSavedSavedNewsFragment extends BaseMainFragment<ListSavedNewsPresenter> implements IListSavedNewsView {
+@Layout(id = R.layout.fragment_news)
+public class ListSaveNewsFragment extends BaseMainFragment<ListSaveNewsPresenter> implements IListSaveNewsView {
     @Inject
-    ListSavedNewsPresenter listSavedNewsPresenter;
+    ListSaveNewsPresenter listSaveNewsPresenter;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -31,16 +31,23 @@ public class ListSavedSavedNewsFragment extends BaseMainFragment<ListSavedNewsPr
     SwipeRefreshLayout refreshLayout;
 
     List<NewsPresenterEntity> news;
-    ListSavedNewsAdapter adapter;
+    ListSaveNewsAdapter adapter;
+
+    private static ListSaveNewsFragment instance;
+
+    public static ListSaveNewsFragment getInstance() {
+        if (instance == null) instance = new ListSaveNewsFragment();
+        return instance;
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         news = new ArrayList<>();
-        adapter = new ListSavedNewsAdapter(this.news);
+        adapter = new ListSaveNewsAdapter(this.news);
         adapter.setOnItemClickListener(
-                view -> listSavedNewsPresenter.newsSelected((NewsPresenterEntity) view.getTag())
+                view -> listSaveNewsPresenter.newsSelected((NewsPresenterEntity) view.getTag())
         );
 
         refreshLayout.setOnRefreshListener(() -> getPresenter().updateNews());
@@ -51,8 +58,8 @@ public class ListSavedSavedNewsFragment extends BaseMainFragment<ListSavedNewsPr
 
     @NonNull
     @Override
-    protected ListSavedNewsPresenter getPresenter() {
-        return listSavedNewsPresenter;
+    protected ListSaveNewsPresenter getPresenter() {
+        return listSaveNewsPresenter;
     }
 
     @Override

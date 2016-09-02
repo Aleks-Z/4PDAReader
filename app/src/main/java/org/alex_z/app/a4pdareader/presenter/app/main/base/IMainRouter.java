@@ -8,5 +8,9 @@ import viper.Router;
 public interface IMainRouter extends IBaseRouter, Router {
     void showListNews();
 
+    void showSaveListNews();
+
     void showNews(NewsPresenterEntity news, boolean fromDisk);
+
+    void showCommentNews(NewsPresenterEntity news);
 }

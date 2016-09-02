@@ -66,6 +66,10 @@ public class ListNewsPresenter extends BaseMainPresenter<IListNewsView> {
         saveNewsInteractor.unsubscribe();
     }
 
+    public void newsCommentSelected(NewsPresenterEntity entity) {
+        getRouter().showCommentNews(entity);
+    }
+
     public void newsSelected(NewsPresenterEntity entity) {
         getRouter().showNews(entity, false);
     }

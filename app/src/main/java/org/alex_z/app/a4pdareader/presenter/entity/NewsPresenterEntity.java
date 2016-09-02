@@ -11,11 +11,14 @@ public class NewsPresenterEntity implements Serializable {
     @NonNull
     private URL urlNews;
 
+    private URL commentUrlNews;
+
     private String sourceHTML;
 
-    public NewsPresenterEntity(@NonNull String title, @NonNull URL urlNews, String sourceHTML) {
+    public NewsPresenterEntity(@NonNull String title, @NonNull URL urlNews, URL commentUrlNews, String sourceHTML) {
         this.title = title;
         this.urlNews = urlNews;
+        this.commentUrlNews = commentUrlNews;
         this.sourceHTML = sourceHTML;
     }
 
@@ -35,6 +38,14 @@ public class NewsPresenterEntity implements Serializable {
 
     public void setUrlNews(@NonNull URL urlNews) {
         this.urlNews = urlNews;
+    }
+
+    public URL getCommentUrlNews() {
+        return commentUrlNews;
+    }
+
+    public void setCommentUrlNews(URL commentUrlNews) {
+        this.commentUrlNews = commentUrlNews;
     }
 
     public String getSourceHTML() {

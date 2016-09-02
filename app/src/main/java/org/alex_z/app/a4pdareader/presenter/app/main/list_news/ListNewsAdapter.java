@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
@@ -19,6 +20,8 @@ import butterknife.ButterKnife;
 class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.NewsViewHolder> {
     private List<NewsPresenterEntity> newsList;
     private View.OnClickListener onItemClickListener;
+    private View.OnClickListener onItemCommentImageButtonClickListener;
+    private View.OnClickListener onItemSaveImageButtonClickListener;
 
     public ListNewsAdapter(List<NewsPresenterEntity> newsList, View.OnClickListener onItemClickListener) {
         this.newsList = newsList;
@@ -31,6 +34,16 @@ class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.NewsViewHolde
 
     public void setOnItemClickListener(View.OnClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnItemCommentImageButtonClickListener
+            (View.OnClickListener onItemCommentImageButtonClickListener) {
+        this.onItemCommentImageButtonClickListener = onItemCommentImageButtonClickListener;
+    }
+
+    public void setOnItemSaveImageButtonClickListener
+            (View.OnClickListener onItemSaveImageButtonClickListener) {
+        this.onItemSaveImageButtonClickListener = onItemSaveImageButtonClickListener;
     }
 
     @Override
@@ -59,15 +72,25 @@ class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.NewsViewHolde
         @BindView(R.id.news_title)
         TextView newsTitleTextView;
 
+        @BindView(R.id.saveImageButton)
+        ImageButton saveImageButton;
+
+        @BindView(R.id.commentImageButton)
+        ImageButton commentImageButton;
+
         NewsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(onItemClickListener);
+            commentImageButton.setOnClickListener(onItemCommentImageButtonClickListener);
+            saveImageButton.setOnClickListener(onItemSaveImageButtonClickListener);
         }
 
         void bind(NewsPresenterEntity news) {
-            newsTitleTextView.setText(news.getTitle());
             itemView.setTag(news);
+            commentImageButton.setTag(news);
+            saveImageButton.setTag(news);
+            newsTitleTextView.setText(news.getTitle());
         }
 
     }

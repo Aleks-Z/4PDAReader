@@ -18,6 +18,8 @@ public class NewsDataEntity {
     @NotNull
     private String urlNews;
 
+    private String commentUrlNews;
+
     private String sourceHTML;
 
     /**
@@ -32,12 +34,13 @@ public class NewsDataEntity {
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    public NewsDataEntity(String title, String urlNews, String sourceHTML) {
-        if (!URLUtil.isValidUrl(urlNews))
-            throw new IllegalArgumentException("urlNews isn't valid");
-
+    public NewsDataEntity(String title, String urlNews, String commentUrlNews, String sourceHTML) {
         this.title = title;
+        if (!URLUtil.isValidUrl(urlNews) || !URLUtil.isValidUrl(commentUrlNews)) {
+            throw new IllegalArgumentException("URL isn't valid");
+        }
         this.urlNews = urlNews;
+        this.commentUrlNews = commentUrlNews;
         this.sourceHTML = sourceHTML;
     }
 
@@ -94,6 +97,14 @@ public class NewsDataEntity {
         this.sourceHTML = sourceHTML;
     }
 
+    public String getCommentUrlNews() {
+        return this.commentUrlNews;
+    }
+
+    public void setCommentUrlNews(String commentUrlNews) {
+        this.commentUrlNews = commentUrlNews;
+    }
+
     public String getUrlNews() {
         return this.urlNews;
     }
@@ -118,18 +129,17 @@ public class NewsDataEntity {
         this.id = id;
     }
 
-    @Generated(hash = 1951640860)
+    @Generated(hash = 295675137)
     public NewsDataEntity(Long id, @NotNull String title, @NotNull String urlNews,
-                          String sourceHTML) {
+                          String commentUrlNews, String sourceHTML) {
         this.id = id;
         this.title = title;
         this.urlNews = urlNews;
+        this.commentUrlNews = commentUrlNews;
         this.sourceHTML = sourceHTML;
     }
 
     @Generated(hash = 1681746503)
     public NewsDataEntity() {
     }
-
-
 }

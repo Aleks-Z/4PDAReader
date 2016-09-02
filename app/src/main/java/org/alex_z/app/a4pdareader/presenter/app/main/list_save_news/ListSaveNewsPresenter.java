@@ -1,4 +1,4 @@
-package org.alex_z.app.a4pdareader.presenter.app.main.list_saved_news;
+package org.alex_z.app.a4pdareader.presenter.app.main.list_save_news;
 
 import org.alex_z.app.a4pdareader.additional.StringProvider;
 import org.alex_z.app.a4pdareader.domain.entity.NewsDomainEntity;
@@ -16,12 +16,12 @@ import javax.inject.Inject;
 
 import rx.Subscriber;
 
-public class ListSavedNewsPresenter extends BaseMainPresenter<IListSavedNewsView> {
+public class ListSaveNewsPresenter extends BaseMainPresenter<IListSaveNewsView> {
     private GetNewsInteractor getNewsInteractor;
     private URL sourceURL;
 
     @Inject
-    ListSavedNewsPresenter(GetNewsInteractor getNewsInteractor) {
+    ListSaveNewsPresenter(GetNewsInteractor getNewsInteractor) {
         this.getNewsInteractor = getNewsInteractor;
         this.getNewsInteractor.fromDisk(true);
         try {

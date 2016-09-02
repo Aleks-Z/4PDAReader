@@ -1,4 +1,4 @@
-package org.alex_z.app.a4pdareader.presenter.app.main.list_saved_news;
+package org.alex_z.app.a4pdareader.presenter.app.main.list_save_news;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.alex_z.app.a4pdareader.R;
+import org.alex_z.app.a4pdareader.presenter.base.Layout;
 import org.alex_z.app.a4pdareader.presenter.entity.NewsPresenterEntity;
 
 import java.util.List;
@@ -14,17 +15,16 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
-class ListSavedNewsAdapter extends RecyclerView.Adapter<ListSavedNewsAdapter.NewsViewHolder> {
+class ListSaveNewsAdapter extends RecyclerView.Adapter<ListSaveNewsAdapter.NewsViewHolder> {
     private List<NewsPresenterEntity> newsList;
     private View.OnClickListener onItemClickListener;
 
-    public ListSavedNewsAdapter(List<NewsPresenterEntity> newsList, View.OnClickListener onItemClickListener) {
+    public ListSaveNewsAdapter(List<NewsPresenterEntity> newsList, View.OnClickListener onItemClickListener) {
         this.newsList = newsList;
         this.onItemClickListener = onItemClickListener;
     }
 
-    ListSavedNewsAdapter(List<NewsPresenterEntity> newsList) {
+    ListSaveNewsAdapter(List<NewsPresenterEntity> newsList) {
         this.newsList = newsList;
     }
 
